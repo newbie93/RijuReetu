@@ -1,11 +1,14 @@
 package demo.list;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class LinkedList {
 	
-	Node head;
-	int length;
+	private final static Logger log=Logger.getLogger("LinkedList");
+	
+	private Node head;
+	private int length;
 
 	private void incrLength() {
 		this.length=this.length+1;
@@ -20,6 +23,13 @@ public class LinkedList {
 		this.length=0;
 	}
 	
+	private static Node remove(Node head, int data) {
+		if(head.data==data) 
+			return head.next;
+		head.next=remove(head.next, data);
+		return head;
+	}
+	
 	private static Node add(Node head,int data) {
 		if(head==null)
 			return new Node(data);
@@ -32,6 +42,11 @@ public class LinkedList {
 		this.incrLength();
 	}
 	
+	public void remove(int data) {
+		this.head=LinkedList.remove(this.head, data);
+		this.decrLength();
+	}
+	
 	public ArrayList<Integer> toList() {
 		ArrayList<Integer>list=new ArrayList<>();
 		Node node=this.head;
@@ -42,16 +57,40 @@ public class LinkedList {
 		return list;
 	}
 	
-	public int at(int index) {
+	public int get(int index) {
+		if(index<0 || index>=this.length) {
+			log.warning("Index "+index+" out of bound. Length of list is "+this.getLength());
+			throw new IndexOutOfBoundsException();
+		}
 		Node node=this.head;
 		int i=0;
 		while(node!=null) {
 			if(i==index)
-				return node.data;
+				break;
 			i++;
 			node=node.next;
 		}
-		throw new IndexOutOfBoundsException();
+		return node.data;
+	}
+	
+	public int firstOccurance(int a) {
+		Node node=this.head;
+		int i=0;
+		while(node!=null) {
+			if(node.data==a)
+				return i;
+			node=node.next;
+			i++;
+		}
+		return -1;
+	}
+	
+	public boolean isPresent(int a) {
+		return this.firstOccurance(a)>=0;
+	}
+	
+	public int getLength() {
+		return this.length;
 	}
 
 }
