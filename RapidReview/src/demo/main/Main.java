@@ -15,8 +15,8 @@ public class Main {
 	private static Logger log=Logger.getLogger("Main");
 	
 	public static void main(String[]args) {
-		int array[]={7,6,5,4,3,2,1},newArray[];
-		newArray=InsertionSort.sort(array);
+		int array[]={2,3,4,5,6,7,1},newArray[];
+		newArray=BubbleSort.sort(array);
 		log.info(ArrayUtil.arrayToString(newArray));
 	}
 
