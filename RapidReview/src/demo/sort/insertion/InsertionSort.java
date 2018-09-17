@@ -1,6 +1,12 @@
 package demo.sort.insertion;
 
+import java.util.logging.Logger;
+
+import demo.sort.utils.ArrayUtil;
+
 public class InsertionSort {
+	
+	private static Logger log=Logger.getLogger("InsertionSort");
 	
 	public static int[] sort(int[]array) {
 		int ptr,i,j;
@@ -13,6 +19,7 @@ public class InsertionSort {
 					break;
 			}
 			array[j+1]=ptr;
+			log.info("step #"+(i)+" : "+ArrayUtil.arrayToString(array));
 		}
 		return array;
 	}
